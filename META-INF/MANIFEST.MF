@@ -1,0 +1,4 @@
+Manifest-Version: 1.1
+Main-Class: me.devleo.PE.main.Main
+Class-Path: commons-collections-3.2.1.jar commons-digester-1.7.jar commons-logging-1.2.jar itext-2.1.7.jar mysql-connector-java-8.0.18.jar DateChooser-SNAPSHOT.jar jasperreports-5.6.0.jar joda-time-2.10.12.jar
+

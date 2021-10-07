@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ed0d521-e85b-4706-8942-3fee698f9bde">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT ID, Data, venda.qtdItens, subTotal, pagamentoDinheiro, pagamentoCartao, nomeCliente, cpfCliente, itemvenda.idItem, itemvenda.nomeProduto, itemvenda.qtdItens FROM TBVENDAS AS venda INNER JOIN TBITEMVENDA AS itemvenda]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Data" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtdItens" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subTotal" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pagamentoDinheiro" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pagamentoCartao" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpfCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idItem" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeProduto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="191" y="0" width="191" height="40" uuid="fabdf192-4d46-42b6-b350-2b54a7c052f8"/>
+				<textElement>
+					<font fontName="Bahnschrift" size="16"/>
+				</textElement>
+				<text><![CDATA[Relatório de venda]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="116ca211-b08d-407e-941a-b261ad7102f9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bahnschrift"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="63" width="100" height="20" uuid="d724e398-2636-4d0b-a283-34d33f552a17"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Bahnschrift" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="102" height="83" uuid="a0d709b2-1c28-4544-a130-78a700b2ad2a"/>
+				<imageExpression><![CDATA["C:\\Users\\eandro\\Downloads\\logo 150x150 (2).png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="31" width="100" height="20" uuid="9a62b593-3751-4cfa-8b4b-a5e24ab895ca"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="29" y="15" width="100" height="20" uuid="1741ea34-bd35-4c8b-8c08-012118fe9765"/>
+				<textFieldExpression><![CDATA[$F{Data}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
