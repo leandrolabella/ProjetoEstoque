@@ -3,9 +3,6 @@ package me.devleo.PE.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author Leandro
- */
 public class Alerta {
 
     private int id;

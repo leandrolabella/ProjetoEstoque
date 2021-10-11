@@ -163,4 +163,25 @@ public class VendaDao {
         }
         return listaVendas;
     }
+
+    public static ResultSet extractRelatorio(int id) {
+        String sql = /*"SELECT vendas.ID, vendas.data, vendas.nomeCliente, vendas.pagamentoCartao, " +
+                "vendas.pagamentoDinheiro, vendas.subtotal, vendas.qtdItens, item.idItem, item.nomeProduto, " +
+                "item.idProduto, item.qtdItens AS qtd2, item.valor, item.valorTotal SUM(pagamentoDinheiro + pagamentoCartao) " +
+                "FROM tbvendas AS vendas INNER JOIN tbitemvenda AS item WHERE vendas.ID = " + id + " AND item.idVenda = vendas.ID";*/
+                "SELECT vendas.ID, vendas.data, vendas.nomeCliente, vendas.pagamentoCartao, vendas.pagamentoDinheiro, vendas.subtotal, vendas.qtdItens AS qtdVenda, item.* FROM tbvendas AS vendas INNER JOIN tbitemvenda AS item WHERE vendas.ID =" + id + " AND item.idVenda =" + id;
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet result;
+
+        try {
+            connection = ConnectionUtils.obterConexao();
+            preparedStatement = connection.prepareStatement(sql);
+            result = preparedStatement.executeQuery();
+
+            return result;
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
 }

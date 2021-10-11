@@ -45,7 +45,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         cbDinheiro = new javax.swing.JCheckBox();
         txtPagamentoDinheiro = new javax.swing.JFormattedTextField();
-        cbCartão = new javax.swing.JCheckBox();
+        cbCartao = new javax.swing.JCheckBox();
         txtPagamentoCartao = new javax.swing.JFormattedTextField();
         javax.swing.JPanel jpSubtotal = new javax.swing.JPanel();
         lbSubtotal = new javax.swing.JLabel();
@@ -89,7 +89,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
+                formComponentShown();
             }
         });
 
@@ -268,14 +268,14 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtPagamentoDinheiro.setPreferredSize(new java.awt.Dimension(101, 24));
         txtPagamentoDinheiro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPagamentoDinheiroFocusLost(evt);
+                txtPagamentoDinheiroFocusLost();
             }
         });
 
-        cbCartão.setBackground(new java.awt.Color(255, 255, 255));
-        cbCartão.setForeground(new java.awt.Color(51, 51, 51));
-        cbCartão.setText("Cartão");
-        cbCartão.addActionListener(this::cbCartãoActionPerformed);
+        cbCartao.setBackground(new java.awt.Color(255, 255, 255));
+        cbCartao.setForeground(new java.awt.Color(51, 51, 51));
+        cbCartao.setText("Cartão");
+        cbCartao.addActionListener(this::cbCartaoActionPerformed);
 
         txtPagamentoCartao.setEditable(false);
         txtPagamentoCartao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -285,7 +285,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtPagamentoCartao.setPreferredSize(new java.awt.Dimension(101, 24));
         txtPagamentoCartao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPagamentoCartaoFocusLost(evt);
+                txtPagamentoCartaoFocusLost();
             }
         });
 
@@ -337,7 +337,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtCpf.setPreferredSize(new java.awt.Dimension(47, 26));
         txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCpfFocusLost(evt);
+                txtCpfFocusLost();
             }
         });
 
@@ -345,7 +345,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtNomeCliente.setPreferredSize(new java.awt.Dimension(14, 25));
         txtNomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNomeClienteFocusLost(evt);
+                txtNomeClienteFocusLost();
             }
         });
 
@@ -361,7 +361,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtMaoObra.setPreferredSize(new java.awt.Dimension(101, 24));
         txtMaoObra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMaoObraFocusLost(evt);
+                txtMaoObraFocusLost();
             }
         });
 
@@ -413,7 +413,7 @@ public class VendaView extends javax.swing.JInternalFrame {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(cbDinheiro)
-                                                                        .addComponent(cbCartão))
+                                                                        .addComponent(cbCartao))
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                                         .addComponent(txtPagamentoDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -475,7 +475,7 @@ public class VendaView extends javax.swing.JInternalFrame {
                                                         .addComponent(txtPagamentoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(cbCartão)
+                                                        .addComponent(cbCartao)
                                                         .addComponent(txtPagamentoCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,7 +577,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtClienteCpfInfo.setText("");
 
         cbDinheiro.setSelected(false);
-        cbCartão.setSelected(false);
+        cbCartao.setSelected(false);
         cbMaoObra.setSelected(false);
         txtPagamentoDinheiro.setValue(0);
         txtPagamentoCartao.setValue(0);
@@ -716,10 +716,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         float valorFaltante;
         float troco;
         int vendaIndex = Integer.parseInt(lbCabecalho.getText().replaceAll("Venda nº ", ""));
-        String respostaController;
-        String respostaController2 = null;
-        String respostaController3 = null;
-        String respostaController4 = null;
+        String respostaController, respostaController2, respostaController3, respostaController4;
 
         if (tabelaVenda.getModel().getRowCount() < 1) {
             JOptionPane.showMessageDialog(rootPane,
@@ -729,7 +726,7 @@ public class VendaView extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (!cbCartão.isSelected() && !cbDinheiro.isSelected()) {
+        if (!cbCartao.isSelected() && !cbDinheiro.isSelected()) {
             JOptionPane.showMessageDialog(rootPane,
                     "Você deve selecionar uma forma de pagamento!",
                     "Atenção",
@@ -763,7 +760,7 @@ public class VendaView extends javax.swing.JInternalFrame {
             //CHECK
         }
 
-        if (cbCartão.isSelected() && verificaValorCartao()) {
+        if (cbCartao.isSelected() && verificaValorCartao()) {
             JOptionPane.showMessageDialog(rootPane,
                     "O Valor de pagamento em cartão não pode ser maior que o subtotal da venda!",
                     "Atencão",
@@ -771,7 +768,7 @@ public class VendaView extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (!cbCartão.isSelected() && !verificaValorDinheiro()) {
+        if (!cbCartao.isSelected() && !verificaValorDinheiro()) {
             JOptionPane.showMessageDialog(rootPane,
                     "O Valor de pagamento em dinheiro não pode ser menor que o subtotal da venda!",
                     "Atencão",
@@ -861,18 +858,18 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtPagamentoDinheiro.setValue(0);
     }
 
-    private void cbCartãoActionPerformed(java.awt.event.ActionEvent evt) {
-        txtPagamentoCartao.setEditable(cbCartão.isSelected());
+    private void cbCartaoActionPerformed(java.awt.event.ActionEvent evt) {
+        txtPagamentoCartao.setEditable(cbCartao.isSelected());
         txtPagamentoCartao.setValue(0);
     }
 
-    private void txtPagamentoDinheiroFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtPagamentoDinheiroFocusLost() {
         if (txtPagamentoDinheiro.getText().length() > 10) {
             txtPagamentoDinheiro.setValue(0);
         }
     }
 
-    private void txtPagamentoCartaoFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtPagamentoCartaoFocusLost() {
         if (txtPagamentoCartao.getText().length() > 10) {
             txtPagamentoCartao.setValue(0);
         }
@@ -885,11 +882,11 @@ public class VendaView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {
+    private void formComponentShown() {
         atualizaIndiceVenda();
     }
 
-    private void txtCpfFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtCpfFocusLost() {
         txtClienteCpfInfo.setText(txtCpf.getText());
     }
 
@@ -903,7 +900,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtMaoObra.setValue(0);
     }
 
-    private void txtMaoObraFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtMaoObraFocusLost() {
         if (txtMaoObra.getText().length() > 10) {
             txtMaoObra.setValue(0);
         }
@@ -911,11 +908,11 @@ public class VendaView extends javax.swing.JInternalFrame {
             atualizaSubtotal(Float.parseFloat(txtMaoObra.getText()));
     }
 
-    private void txtNomeClienteFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtNomeClienteFocusLost() {
         txtClienteNomeInfo.setText(txtNomeCliente.getText());
     }
 
-    private javax.swing.JCheckBox cbCartão;
+    private javax.swing.JCheckBox cbCartao;
     private javax.swing.JCheckBox cbDinheiro;
     private javax.swing.JCheckBox cbMaoObra;
     private javax.swing.JSpinner jsProdutoQuantidade;

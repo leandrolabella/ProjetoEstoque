@@ -96,5 +96,4 @@ public class Venda {
     public void setCPFCliente(String CPFCliente) {
         this.CPFCliente = CPFCliente;
     }
-
 }

@@ -82,9 +82,9 @@ public class ProdutoDao {
 
     public static ResultSet listarResult() {
         String sql = "SELECT nome, quantidade, custo, valor, descricao FROM TBPRODUTOS";
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet result = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet result;
 
         try {
             connection = ConnectionUtils.obterConexao();

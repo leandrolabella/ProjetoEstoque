@@ -13,7 +13,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class ProdutoCadastroAlteracaoView extends javax.swing.JInternalFrame {
@@ -336,13 +335,14 @@ public class ProdutoCadastroAlteracaoView extends javax.swing.JInternalFrame {
         try {
             String curDir = System.getProperty("user.dir");
             JRResultSetDataSource jr = new JRResultSetDataSource(ProdutoDao.listarResult());
-            InputStream caminhoRel = new FileInputStream("C:\\Users\\eandro\\IdeaProjects\\ProjetoEstoque\\src\\me\\devleo\\PE\\relatorio\\report1.jasper");
+            InputStream caminhoRel = getClass().getResourceAsStream("/me/devleo/PE/relatorio/Produtos.jasper");
             JasperPrint jp = JasperFillManager.fillReport(caminhoRel, null, jr);
             JasperExportManager.exportReportToPdfFile(jp, curDir + "/relProdutos.pdf");
             File arquivo = new File(curDir + "/relProdutos.pdf");
             Desktop.getDesktop().open(arquivo);
             arquivo.deleteOnExit();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

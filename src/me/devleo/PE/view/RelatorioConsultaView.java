@@ -5,10 +5,17 @@ import me.devleo.PE.controller.VendaController;
 import me.devleo.PE.fonts.FontManager;
 import me.devleo.PE.model.ItemVenda;
 import me.devleo.PE.model.Venda;
+import me.devleo.PE.sql.VendaDao;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public class RelatorioConsultaView extends javax.swing.JInternalFrame {
@@ -32,6 +39,8 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
         lbCabecalho2 = new javax.swing.JLabel();
         JScrollPane jScrollPane3 = new JScrollPane();
         itensVendaTabela = new javax.swing.JTable();
+        // Variables declaration - do not modify
+        btnGerarPDF = new JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -163,7 +172,7 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
         vendasTabela.getTableHeader().setReorderingAllowed(false);
         vendasTabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                vendasTabelaMouseClicked(evt);
+                vendasTabelaMouseClicked();
             }
         });
         jScrollPane1.setViewportView(vendasTabela);
@@ -191,7 +200,7 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
         btnSair.setMaximumSize(new java.awt.Dimension(79, 32));
         btnSair.setMinimumSize(new java.awt.Dimension(79, 32));
         btnSair.setPreferredSize(new java.awt.Dimension(79, 32));
-        btnSair.addActionListener(this::btnSairActionPerformed);
+        btnSair.addActionListener(evt -> btnSairActionPerformed());
 
         jpCabecalho2.setBackground(new java.awt.Color(17, 128, 216));
         jpCabecalho2.setMaximumSize(new java.awt.Dimension(853, 29));
@@ -282,6 +291,15 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
             itensVendaTabela.getColumnModel().getColumn(5).setPreferredWidth(6);
         }
 
+        btnGerarPDF.setBackground(new java.awt.Color(17, 128, 216));
+        btnGerarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnGerarPDF.setText("Gerar PDF");
+        btnGerarPDF.setEnabled(false);
+        btnGerarPDF.setMaximumSize(new java.awt.Dimension(79, 32));
+        btnGerarPDF.setMinimumSize(new java.awt.Dimension(79, 32));
+        btnGerarPDF.setPreferredSize(new java.awt.Dimension(79, 32));
+        btnGerarPDF.addActionListener(evt -> btnGerarPDFActionPerformed());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,23 +310,28 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lbDataInicial)
-                                                        .addComponent(dcDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(12, 12, 12)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lbDataFinal)
-                                                        .addComponent(dcDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnPesquisar)
-                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jpCabecalho2, javax.swing.GroupLayout.PREFERRED_SIZE, 841, Short.MAX_VALUE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jScrollPane1)
-                                        .addComponent(jScrollPane3)
-                                        .addComponent(jpCabecalho2, javax.swing.GroupLayout.PREFERRED_SIZE, 841, Short.MAX_VALUE))
+                                                .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(12, 12, 12))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(lbDataInicial)
+                                                                        .addComponent(dcDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(12, 12, 12)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(lbDataFinal)
+                                                                        .addComponent(dcDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(btnPesquisar))
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -331,9 +354,11 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jpCabecalho2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
 
@@ -355,6 +380,7 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
     }
 
     public void pesquisar() {
+        btnGerarPDF.setEnabled(false);
         String dataInicio = null;
         String dataFim = null;
         if (dcDataInicial.getText().equals("")) {
@@ -368,7 +394,6 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
 
         tableModel = (DefaultTableModel) vendasTabela.getModel();
         tableModel.setRowCount(0);
-
         if (resultado != null && resultado.size() > 0) {
             for (Venda venda : resultado) {
                 if (venda != null) {
@@ -396,6 +421,7 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
 
     public void detalhesVenda() {
         if (vendasTabela.getSelectedRow() < 0) {
+            btnGerarPDF.setEnabled(false);
             return;
         }
         int row = vendasTabela.getSelectedRow();
@@ -420,11 +446,13 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
                 }
             }
             resultado.clear();
+            btnGerarPDF.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane,
                     "Não existem resultados para esta venda!",
                     "Não há dados",
                     JOptionPane.ERROR_MESSAGE);
+            btnGerarPDF.setEnabled(false);
         }
     }
 
@@ -456,14 +484,32 @@ public class RelatorioConsultaView extends javax.swing.JInternalFrame {
         lbCabecalho2.setFont(futuraPT20Bold);
     }
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnSairActionPerformed() {
         this.dispose();
     }
 
-    private void vendasTabelaMouseClicked(java.awt.event.MouseEvent evt) {
+    private void vendasTabelaMouseClicked() {
         detalhesVenda();
     }
 
+    private void btnGerarPDFActionPerformed() {
+        int row = vendasTabela.getSelectedRow();
+        int idVenda = (int) vendasTabela.getValueAt(row, 0);
+        try {
+            String curDir = System.getProperty("user.dir");
+            JRResultSetDataSource jr = new JRResultSetDataSource(VendaDao.extractRelatorio(idVenda));
+            InputStream caminhoRel = getClass().getResourceAsStream("/me/devleo/PE/relatorio/InfoVenda.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(caminhoRel, null, jr);
+            JasperExportManager.exportReportToPdfFile(jp, curDir + "/relVenda.pdf");
+            File arquivo = new File(curDir + "/relVenda.pdf");
+            Desktop.getDesktop().open(arquivo);
+            arquivo.deleteOnExit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private JButton btnGerarPDF;
     private datechooser.beans.DateChooserCombo dcDataFinal;
     private datechooser.beans.DateChooserCombo dcDataInicial;
     private javax.swing.JTable itensVendaTabela;

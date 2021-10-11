@@ -18,7 +18,6 @@ public class AlertaView extends javax.swing.JInternalFrame {
     }
 
     private void initComponents() {
-
         JPanel jPanel2 = new JPanel();
         lbCabecalho = new javax.swing.JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
